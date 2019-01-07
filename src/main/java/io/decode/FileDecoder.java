@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class FileDecoder implements Decoder<Object> {
 
@@ -26,22 +25,20 @@ public class FileDecoder implements Decoder<Object> {
 
     @Override
     public List decode(Expression expression, DataFormat[] formats) {
-        List<List> items = new ArrayList<>();
+        List<Object> items = new ArrayList<>();
         Charset charset = Charset.forName("US-ASCII");
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(entry.path()), charset)) {
 
             String line;
             while ((line = reader.readLine()) != null) {
                 LineSplitter splitter = new LineSplitter(line.trim());
-                List<Object> parts = splitter.extract(expression, formats);
-                if (!Objects.isNull(parts) && !parts.isEmpty())
-                    items.add(parts);
+                Object result = splitter.extract(expression, formats);
+                if (!Objects.isNull(result))
+                    items.add(result);
             }
         } catch (Exception e) {
             ExceptionHandler.from(e, ExceptionTypes.IO_ERROR);
         }
-        return items.stream()
-                .filter(item -> !Objects.isNull(item) && !item.isEmpty())
-                .collect(Collectors.toList());
+        return new ArrayList<>(items);
     }
 }

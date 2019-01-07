@@ -9,5 +9,5 @@ public interface Splitter {
 
     String format();
 
-    List<String> extract(Expression expression, DataFormat[] formats);
+    Object extract(Expression expression, DataFormat[] formats);
 }

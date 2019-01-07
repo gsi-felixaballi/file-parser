@@ -8,11 +8,9 @@ import common.model.PeopleTuple;
 import common.util.DataFormat;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class LineSplitter implements Splitter {
 
@@ -28,7 +26,7 @@ public class LineSplitter implements Splitter {
     }
 
     @Override
-    public List extract(Expression expression, DataFormat[] formats) {
+    public Object extract(Expression expression, DataFormat[] formats) {
         try {
             if (Strings.isNullOrEmpty(line)) throw new IOException(String.valueOf(ExceptionTypes.CONTENT_TYPE));
 
@@ -45,25 +43,24 @@ public class LineSplitter implements Splitter {
         return null;
     }
 
-    private static List chunks(String content, Expression expression, DataFormat format) {
+    private static PeopleTuple chunks(String content, Expression expression, DataFormat format) {
         Pattern pattern = Pattern.compile(format.getFormat());
         Matcher matcher = pattern.matcher(content);
 
-        final List<PeopleTuple> chunks = new ArrayList<>();
+        PeopleTuple result = null;
         while (matcher.find()) {
-            IntStream.range(1, matcher.groupCount())
-                    .forEach(group -> {
-                        String replaced = matcher.group(group).replaceAll("[,;]*", "");
-                        if (group == expression.getGroup() && replaced.equalsIgnoreCase(expression.getExpression())) {
-                            chunks.add(new PeopleTuple(
-                                    matcher.group(4).replaceAll("[,;]*", "").trim(),
-                                    matcher.group(2).replaceAll("[,;]*", "").trim(),
-                                    matcher.group(3).replaceAll("[,;]*", "").trim())
-                            );
-                        }
-                    });
+            for (int i = 1; i < matcher.groupCount(); i++) {
+                String replaced = matcher.group(i).replaceAll("[,;]*", "");
+                if (i == expression.getGroup() && replaced.equalsIgnoreCase(expression.getExpression())) {
+                    result = new PeopleTuple(
+                            matcher.group(4).replaceAll("[,;]*", "").trim(),
+                            matcher.group(2).replaceAll("[,;]*", "").trim(),
+                            matcher.group(3).replaceAll("[,;]*", "").trim());
+                    break;
+                }
+            }
         }
 
-        return chunks;
+        return result;
     }
 }
