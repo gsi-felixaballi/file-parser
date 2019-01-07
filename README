@@ -1,0 +1,12 @@
+E.g
+
+Command:
+java -jar file-parser-app-1.0-SNAPSHOT.jar "./classes/data.txt" "ID" "25384390A"
+java -jar file-parser-app-1.0-SNAPSHOT.jar "./classes/data.txt" "ID" "25384390-A"
+
+
+Resource:
+"data.txt"
+
+Output:
+[[{id: 25384390A, name: Mitchell Newton, city: SAN FRANCISCO}]]
