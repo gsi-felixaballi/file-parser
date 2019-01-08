@@ -19,16 +19,18 @@ The input file represents a list of places and people at different times. There 
 formats mixed in the same file.
 Disclaimer: names and ID's are completely randomly generated with an online tool. Any possible
 match it's just a coincidence.
-Important notes
-We expect good quality, maintainable code, with re-usability in mind.
-Provide a production-ready solution, both in terms of functionality, and in terms of source
+
+**Important notes**
+- We expect good quality, maintainable code, with re-usability in mind.
+- Provide a production-ready solution, both in terms of functionality, and in terms of source
 code quality.
-Presence of any kind of tests is a big plus. TDD/BDD is welcome.
-Your program will be tested with huge, multi-gigabyte files.
-Code-style and project structure is as important as the code itself. Use static analysis.
-Use of a build system is expected (one of Gradle, Bazel, Maven, Ant, etc).
-This should not take more than 2-3 hours to implement.
-Format details
+- Presence of any kind of tests is a big plus. TDD/BDD is welcome.
+- Your program will be tested with huge, multi-gigabyte files.
+- Code-style and project structure is as important as the code itself. Use static analysis.
+- Use of a build system is expected (one of Gradle, Bazel, Maven, Ant, etc).
+- This should not take more than 2-3 hours to implement.
+
+**Format details**
 1. Each line starts with F or D.
 2. If F, this is a "format" line and two formats can be provided (1 or 2).
 3. If D, this is a "data" line whose format is defined by the closest above format line.
@@ -49,7 +51,7 @@ belonging to people that have been in that city
 Will print the list of cities that this person has been to.
 
 
-### Scenarios:
+### Use Cases:
 **Resource:**  *"./classes/data.txt"*
 
 **Program input:**
