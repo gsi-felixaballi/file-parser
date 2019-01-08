@@ -20,6 +20,7 @@ public class LineSplitter {
     }
 
     public PeopleTuple extract(Expression expression, DataFormat[] formats) {
+        PeopleTuple result = null;
         try {
             if (Strings.isNullOrEmpty(line)) throw new IOException(String.valueOf(ExceptionTypes.CONTENT_TYPE));
 
@@ -29,11 +30,10 @@ public class LineSplitter {
                 if (matcher.matches())
                     return chunks(this.line, expression, format);
             }
-
         } catch (Exception e) {
             ExceptionHandler.from(e, ExceptionTypes.CONTENT_TYPE).print();
         }
-        return null;
+        return result;
     }
 
     private static PeopleTuple chunks(String content, Expression expression, DataFormat format) {
