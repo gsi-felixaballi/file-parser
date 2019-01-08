@@ -9,7 +9,7 @@ The input file represents a *list of places and people at different times*.
 There are two distinct formats mixed in the same file. 
 
 **Disclaimer**: names and ID's are completely randomly generated with an online tool. Any possible
-match it's just a coincidence
+match it's just a coincidence.
 
 **Abstract**
 We have a public leak file that we need to process to be able to ingest that information into our
