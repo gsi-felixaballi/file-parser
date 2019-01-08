@@ -8,11 +8,10 @@ import common.model.PeopleTuple;
 import common.util.DataFormat;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LineSplitter implements Splitter {
+public class LineSplitter {
 
     private String line;
 
@@ -20,13 +19,7 @@ public class LineSplitter implements Splitter {
         this.line = line;
     }
 
-    @Override
-    public String format() {
-        return DataFormat.DATA_PATTERN.name();
-    }
-
-    @Override
-    public Object extract(Expression expression, DataFormat[] formats) {
+    public PeopleTuple extract(Expression expression, DataFormat[] formats) {
         try {
             if (Strings.isNullOrEmpty(line)) throw new IOException(String.valueOf(ExceptionTypes.CONTENT_TYPE));
 
@@ -44,8 +37,7 @@ public class LineSplitter implements Splitter {
     }
 
     private static PeopleTuple chunks(String content, Expression expression, DataFormat format) {
-        Pattern pattern = Pattern.compile(format.getFormat());
-        Matcher matcher = pattern.matcher(content);
+        Matcher matcher = format.pattern().matcher(content);
 
         PeopleTuple result = null;
         while (matcher.find()) {

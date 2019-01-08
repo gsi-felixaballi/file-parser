@@ -25,11 +25,6 @@ public class CityProcessor implements FileProcessor {
     }
 
     @Override
-    public String file() {
-        return file;
-    }
-
-    @Override
     public List process(Expression expression, Decoder decoder, DataFormat[] formats) {
         return decoder.decode(expression, formats);
     }
